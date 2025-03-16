@@ -21,14 +21,18 @@ const buttonVariants = cva(
                     "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 ghost: "hover:bg-accent hover:text-accent-foreground",
                 link: "text-primary underline-offset-4 hover:underline",
-                neo: cn(neoClasses, "bg-[#3e406a] text-white border-[#6366a7]"),
+                neo: cn(neoClasses, "bg-primary text-primary-foreground border-blue-900"),
                 neoOutline: cn(neoClasses, "bg-[#3e406a] text-white border-[#6366a7]"),
+                neoSuccess: cn(neoClasses, "bg-green-500 text-primary-foreground border-green-600"),
+                neoDanger: cn(neoClasses, "bg-red-500 text-primary-foreground border-red-600"),
+
 
             },
             size: {
                 default: "h-10 px-4 py-2",
                 sm: "h-9 rounded-md px-3",
                 lg: "h-14 rounded-full px-3.5 py-5",
+                xl: "rounded-2xl h-16 px-6 py-3",
                 icon: "h-10 w-10",
             },
         },
@@ -58,7 +62,10 @@ export const spanVariants = cva(
                     "hidden",
                 ghost: "hidden",
                 link: "hidden",
-                neo: "border-blue-900 bg-primary-shadow"
+                neo: "border-blue-900 bg-primary-shadow",
+                neoOutline: "bg-[6366a7] border-[#6366F6]",
+                neoSuccess: "border-green-500 bg-green-600",
+                neoDanger: "border-red-500 bg-red-600"
             },
         },
         defaultVariants: {
@@ -73,11 +80,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         const Comp = asChild ? Slot : "button"
 
         const containerClasses = clsx({
-            relative: variant === "neo",
+            relative: variant === "neo" || variant === "neoOutline" || variant==="neoSuccess" || variant==="neoDanger",
         });
 
         const borderRound = clsx({
             "rounded-full": variant === "neo",
+            "rounded-2xl": variant === "neoOutline" || variant === "neoSuccess" || variant === "neoDanger",
         })
 
         return (
